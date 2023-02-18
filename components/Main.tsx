@@ -14,7 +14,12 @@ const Main = () => {
             font-bold'>
                 the snow lottery!
             </div>
-            <div className='text-xl'>
+            <div className='px-2 md:text-4xl my-4'>
+                1. buy tickets
+                2. wait for the draw 
+                3. win! or not!
+            </div>
+            <div className='text-2xl mt-8 flex px-4'>
                 {account ? 
                     <ConnectedAddress/> :
                     <div>use qnect to connect Hana or MetaMask!</div>

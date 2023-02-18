@@ -14,7 +14,7 @@ type MetaMaskEthereumProvider = {
 }
 
 const WalletProvider = ({name}: Props) => {
-    const { setAccount, setConnectModalOpen, setProvider } = useGlobalContext()
+    const { setAccount, setConnectModalOpen, setProvider, setSigner } = useGlobalContext()
 
     const handleClick = async () => {
         const provider = await detectEthereumProvider() as MetaMaskEthereumProvider
@@ -24,7 +24,10 @@ const WalletProvider = ({name}: Props) => {
             setAccount(_account[0])
             const _provider = new ethers.providers.Web3Provider(provider)
             // console.log(_provider)
-            setProvider(_provider)    
+            setProvider(_provider) 
+            
+            const _signer = _provider.getSigner()
+            setSigner(_signer)
         }
 
         setConnectModalOpen(false)

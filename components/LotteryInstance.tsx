@@ -32,6 +32,8 @@ const LotteryInstance = () => {
     const [ticketOwners, setTicketOwners] = useState<Ticket[]>([])
     const [ticketAmountOwnerByAccount, setTicketAmountOwnerByAccount] = useState<number>(0)
 
+   
+
     useEffect(() => {
         const getOwner = async () => {
             const res = await contractCaller.owner()
@@ -138,18 +140,18 @@ const LotteryInstance = () => {
     return (
     <div className=' 
     flex flex-col items-center justify-center
-    md:w-5/12 h-auto rounded-xl p-4 m-8 w-11/12
-    bg-funRed text-white z-10 shadow-2xl
+    md:w-5/12  md:p-4 md:m-8 w-11/12
+    bg-funRed text-white z-10 shadow-2xl rounded-xl
     '>
 
         {lotteryInstance &&
-        <div>
-            <div className='text-2xl font-bold'>
+        <div className='w-full p-2'>
+            <div className='text-2xl font-bold px-6'>
             active lottery #{lotteryInstance.id}
             </div>
 
-            <div className='mt-6'>
-            <div className='font-bold'>
+            <div className='mt-6 px-6'>
+                <div className='font-bold'>
                 your tickets: {ticketAmountOwnerByAccount}
                 </div>
                 <div className='font-bold'>
@@ -166,7 +168,7 @@ const LotteryInstance = () => {
                 </div>
             </div>
 
-            <div className='mt-6 bg-funPurple p-8 rounded-md hover:bg-funBlue cursor-pointer shadow-2xl'>
+            <div className='mt-6 flex justify-center bg-funPurple py-4 px-8 md:p-8 rounded-md hover:bg-funBlue cursor-pointer shadow-2xl'>
                 <div 
                 className='text-2xl font-bold'
                 onClick={() => setBuyTicketsModalOpen(true)}

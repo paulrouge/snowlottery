@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { ethers } from 'ethers'
 import lotteryAbi from '../utils/contracts/lottery_abi.json'
 import { ContractAddresses } from '../utils/constants/addresses'
@@ -24,6 +24,7 @@ const BuyTicketsModal = (props: Props) => {
     const { signer, setTransactionToCheck, lotteryId } = useGlobalContext()
     const contractSigner = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, signer)
     const [amountOfTickets, setAmountOfTickets] = useState<number>(1)
+
 
     const handleAmountOfTicketsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAmountOfTickets(parseInt(e.target.value))
@@ -51,7 +52,10 @@ const BuyTicketsModal = (props: Props) => {
     <div className='fixed top-0 left-0 backdrop-blur-sm w-screen h-screen absolute z-20 flex justify-center items-center'
     onClick={()=>{props.setModalOpen(false)}}
     >
-        <div className=' bg-funPurple rounded md:p-12 border-8 border-white z-40' onClick={(e) => e.stopPropagation()}>
+        <div className='
+        bg-funPurple rounded md:p-12 px-4 py-2
+        border-8 border-white z-40' 
+        onClick={(e) => e.stopPropagation()}>
             <div className='font-bold text-5xl text-white'>
             get your tickets!
             </div>
@@ -74,12 +78,12 @@ const BuyTicketsModal = (props: Props) => {
             </div>
 
             <div className='mt-2'>
-                cost: {isNaN(amountOfTickets) ? 0 : amountOfTickets * props.lottery.ticketPrice} ICZ
+                {/* cost: {isNaN(amountOfTickets) ? 0 : amountOfTickets * props.lottery.ticketPrice} ICZ */}
             </div>
             <div className='mt-2'>
                 <button className='
                 hover:bg-funBlue hover:text-funPurple border 
-                border-white text-white rounded-md p-2 font-bold
+                border-white text-white rounded-md p-4 font-bold
                 '
                 onClick={() => handleBuyTickets()}
                 >
