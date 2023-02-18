@@ -68,7 +68,7 @@ const IndexPage = () => {
 
   return (
   <Layout title="Snow Lottery">
-    { !deviceIsMobile && 
+    {/* { !deviceIsMobile && 
       <>
         <ConnectButton/>
         { connectModalOpen && <ChooseWalletProvider/> }
@@ -86,8 +86,12 @@ const IndexPage = () => {
       </>
 
       }
+    </div> */}
+    <div className="flex flex-col items-center justify-center font-customFont">
+      { connectModalOpen && <ChooseWalletProvider/> }
+      <ConnectButton/>
+      <Main/>
     </div>
-    
     { transactionToCheck && <AwaitTransactionModal/> }
   </Layout>
 
