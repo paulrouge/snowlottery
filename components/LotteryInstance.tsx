@@ -175,23 +175,23 @@ const LotteryInstance = () => {
         {lotteryInstance &&
         <div className='w-full p-2'>
             <div className='text-2xl font-bold px-6'>
-            active lottery #{lotteryInstance.id}
+            lottery #{lotteryInstance.id}
             </div>
 
             <div className='mt-6 px-6'>
-                <div className='font-bold'>
+                <div>
                 your tickets: {ticketAmountOwnerByAccount}
                 </div>
-                <div className='font-bold'>
+                <div>
                 prize pool: {lotteryInstance.totalTickets * lotteryInstance.ticketPrice}
                 </div>
-                <div className='font-bold'>
+                <div className=''>
                 ticket price:  {lotteryInstance.ticketPrice} ICZ
                 </div>
-                <div className='font-bold'>
+                <div>
                 tickets left: {lotteryInstance.totalTickets}
                 </div>
-                <div className='font-bold'>
+                <div>
                 total tickets sold: {lotteryInstance.ticketsSold}
                 </div>
             </div>

@@ -18,15 +18,13 @@ const Main = () => {
             font-bold'>
                 the snow lottery!
             </div>
-            <div className='px-2 md:text-2xl my-4 font-bold'>
-                
-            </div>
+            
             <div className='
             flex flex-col md:flex-row md:text-2xl 
             mx-4 justify-center items-center
             '>
                 <div className='mx-4'>
-                    winner is picked every sunday
+                    winner is picked onchain, every sunday
                 </div>
                 <div className='mx-4'>
                     twitter @snowlottery
