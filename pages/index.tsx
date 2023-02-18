@@ -68,7 +68,7 @@ const IndexPage = () => {
 
   return (
   <Layout title="Snow Lottery">
-    { deviceIsMobile && 
+    { !deviceIsMobile && 
       <>
         <ConnectButton/>
         { connectModalOpen && <ChooseWalletProvider/> }
@@ -76,13 +76,14 @@ const IndexPage = () => {
     }
     
     <div className="flex flex-col items-center justify-center font-customFont">
-      {deviceIsNotWallet ? 
+      { deviceIsNotWallet ? 
         <div>
           On mobile, use the Hana or MetaMask app to connect.
         </div> :
       <Main/>}
     </div>
-    {transactionToCheck && <AwaitTransactionModal/>}
+    
+    { transactionToCheck && <AwaitTransactionModal/> }
   </Layout>
 
   )
