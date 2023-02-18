@@ -32,6 +32,24 @@ const LotteryInstance = () => {
     const [ticketAmountOwnerByAccount, setTicketAmountOwnerByAccount] = useState<number>(0)
     const [contractCaller, setContractCaller] = useState<ethers.Contract|null>(null)
     const [contractSigner, setContractSigner] = useState<ethers.Contract|null>(null)
+    const [toggleGetter, setToggleGetter] = useState<boolean>(false)
+
+    useEffect(() => {
+        if(window){
+            // if eventlister not already exists, add it
+            if(!window.hasOwnProperty('txdone')){
+                window.addEventListener('txdone', async () => {
+                    setToggleGetter(!toggleGetter)
+                    setBuyTicketsModalOpen(false)
+                })
+            }
+        }
+        return () => {
+            if(window){
+                window.removeEventListener('txdone', () => {})
+            }
+        }
+    }, [account])
 
     useEffect(() => {
         if(provider){
@@ -47,20 +65,6 @@ const LotteryInstance = () => {
         }
     }, [signer])
 
-
-    // test get tickowner
-    // useEffect(() => {
-    //     const getOwner = async () => {
-    //         const owner:string = await contractCaller.ticketOwners(lotteryId,9) 
-    //         console.log(owner)
-    //     }
-    //     if(contractCaller){
-    //         getOwner()
-    //     }
-  
-    // }, [contractCaller])
-
-    
     useEffect(() => {
         const getOwner = async () => {
             const res = await contractCaller.owner()
@@ -72,6 +76,7 @@ const LotteryInstance = () => {
     }, [contractCaller])
 
     useEffect(() => {
+        
         if(ownerOfContract === account && account !== ''){
             setAccountIsOwner(true)
         } else {
@@ -98,7 +103,7 @@ const LotteryInstance = () => {
         if(contractCaller){
             getLottery()
         }
-    }, [contractCaller])
+    }, [contractCaller, toggleGetter])
 
     useEffect(() => {
         const getOwners = async () => {
@@ -120,14 +125,13 @@ const LotteryInstance = () => {
         if(contractCaller){
             getOwners()
         }
-    }, [contractCaller])
+    }, [contractCaller, toggleGetter])
   
     useEffect(() => {
         setTicketAmountOwnerByAccount(0)
         const getAmountOwned = async () => {
             for(let i = 0; i < ticketOwners.length; i++){
-                if(ticketOwners[i].address.toLowerCase() === account){
-                    console.log('found')
+                if(ticketOwners[i].address.toLowerCase() === account.toLowerCase()){
                     setTicketAmountOwnerByAccount(prev => prev + 1)
                 }
             }
@@ -208,7 +212,7 @@ const LotteryInstance = () => {
         </div>
         }
 
-        {buyTicketsModalOpen &&
+        { buyTicketsModalOpen &&
         <BuyTicketsModal lottery={lotteryInstance} modalOpen={buyTicketsModalOpen} setModalOpen={setBuyTicketsModalOpen}/>}
 
 

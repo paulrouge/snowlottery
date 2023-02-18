@@ -1,6 +1,4 @@
 import React from 'react'
-import { useGlobalContext } from '../utils/context/globalContext'
-
 
 type Ticket = {
     address: string,

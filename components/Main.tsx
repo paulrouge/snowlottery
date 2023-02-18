@@ -32,7 +32,7 @@ const Main = () => {
             <div className='md:text-xl mt-8 flex px-4'>
                 {account ? 
                     <ConnectedAddress/> :
-                    <div>use qnect to connect Hana or MetaMask!</div>
+                    <div>use q-nect to connect Hana or MetaMask!</div>
                 }
             </div>
             <LotteryInstance/>

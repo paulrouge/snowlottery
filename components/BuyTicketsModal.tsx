@@ -21,7 +21,7 @@ type Props = {
 }
 
 const BuyTicketsModal = (props: Props) => {
-    const { signer, setTransactionToCheck, lotteryId } = useGlobalContext()
+    const { signer, setTransactionToCheck, lotteryId, setCallBackTransaction } = useGlobalContext()
     const contractSigner = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, signer)
     const [amountOfTickets, setAmountOfTickets] = useState<number>(1)
 
@@ -40,7 +40,6 @@ const BuyTicketsModal = (props: Props) => {
         try{
             const tx = await contractSigner.buyTickets(lotteryId, amountOfTickets, options)
             setTransactionToCheck(tx)
-
         } catch (e) {
             console.log(e)
         }

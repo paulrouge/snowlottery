@@ -10,7 +10,7 @@ const AwaitTransactionModal = () => {
     const [countdown, setCountdown] = useState(30)
     const [status, setStatus] = useState("Waiting for transaction to be mined")
     const [dots, setDots] = useState(".")
-    const [hash, setHash] = useState(transactionToCheck)
+    // const [hash, setHash] = useState(transactionToCheck)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -22,7 +22,7 @@ const AwaitTransactionModal = () => {
     }, [countdown])
 
     useEffect(() => {
-        setCountdown(30)
+        setCountdown(40)
     }, [transactionToCheck])
 
     useEffect(() => {
@@ -31,10 +31,13 @@ const AwaitTransactionModal = () => {
             const txStatus = receipt.status 
             
             if(txStatus === 1) {
-                setStatus("✅ Transaction successful! Closing in 5 seconds")
-                setCountdown(5)
-                await sleep(5000)
+                setStatus("✅ Transaction successful! Closing in 3 seconds")
+                setCountdown(3)
+                await sleep(3000)
+                // emit event to refresh data
+                window.dispatchEvent(new Event('txdone'))
                 setTransactionToCheck(null)
+ 
             } else {
                 alert("Something went wrong. Check the Snow Tracker.")
             }
@@ -57,12 +60,12 @@ const AwaitTransactionModal = () => {
         return () => clearInterval(interval)
     }, [dots])
 
-    useEffect(() => {
-        if(transactionToCheck) {
-            setHash(transactionToCheck)
-        }
+    // useEffect(() => {
+    //     if(transactionToCheck) {
+    //         setHash(transactionToCheck)
+    //     }
 
-    }, [transactionToCheck])
+    // }, [transactionToCheck])
 
     return (
     <div className='fixed top-0 left-0 backdrop-blur-sm
