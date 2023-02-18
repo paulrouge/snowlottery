@@ -16,8 +16,8 @@ export type globalContextValueType = {
     setSigner: React.Dispatch<React.SetStateAction<ethers.Signer | null>>,
     globalLoading: boolean,
     setGlobalLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    transactionToCheck: ethers.Transaction | null,
-    setTransactionToCheck: React.Dispatch<React.SetStateAction<ethers.Transaction | null>>,
+    transactionToCheck: any | null,
+    setTransactionToCheck: React.Dispatch<React.SetStateAction<any| null>>,
     connectModalOpen: boolean,
     setConnectModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
     deviceIsMobile: boolean,
@@ -36,7 +36,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
-    const [transactionToCheck, setTransactionToCheck] = useState<ethers.Transaction|null>(null)
+    const [transactionToCheck, setTransactionToCheck] = useState<any|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
     const [deviceIsMobile, setDeviceIsMobile] = useState<boolean>(true)
 
