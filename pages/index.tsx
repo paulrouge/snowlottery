@@ -80,7 +80,8 @@ const IndexPage = () => {
         <div>
           On mobile, use the Hana or MetaMask app to connect.
         </div> :
-      <Main/>}
+      <Main/>
+      }
     </div>
     
     { transactionToCheck && <AwaitTransactionModal/> }
