@@ -8,10 +8,9 @@ const Main = () => {
   
     return (
     <div className='w-screen h-screen'>
-        <div className='
-        w-full h-full bg-funYellow flex flex-col 
-        justify-center items-center overflow-scroll 
-        pt-60 pb-20'>
+        <div className={`w-full h-full 
+        bg-funYellow flex flex-col justify-center 
+        items-center overflow-scroll pb-20 ${account == '' ? 'pt-0' : 'pt-60'}`} >
             <div className='
             pt-12 flex flex-col items-center j
             ustify-center w-full md:text-8xl text-4xl
