@@ -15,13 +15,21 @@ const WalletProvider = ({name}: Props) => {
             if (_account === null){
                 return alert('Make sure you have Hana Wallet installed!')
             }
-            setAccount(_account)
+            try{
+                setAccount(_account)
+            } catch (err) {
+                alert(err)
+            }
         } else if (name === 'Metamask') {
             const _account = await ConnectToMetaMask()
             if (_account === null){
                 return alert('Make sure you have Metamask installed!')
             }
-            setAccount(_account)
+            try {
+                setAccount(_account)
+            } catch (err) {
+                alert(err)
+            }
         }   
         setConnectModalOpen(false)
     }
