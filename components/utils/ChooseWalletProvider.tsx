@@ -23,37 +23,10 @@ const WalletProvider = ({name}: Props) => {
             const _account = await provider.request({ method: 'eth_requestAccounts' })
             setAccount(_account[0])
             const _provider = new ethers.providers.Web3Provider(provider)
-            console.log(_provider)
+            // console.log(_provider)
             setProvider(_provider)    
         }
 
-   
-
-
-
-        // if (name === 'Hana') {
-        //     const _account = await ConnectToHana()
-        //     if (_account === null){
-        //         return alert('Make sure you have Hana Wallet installed!')
-        //     }
-        //     try {
-        //         setAccount(_account)
-        //     } catch (err) {
-        //         alert(err)
-        //     }
-        // } else if (name === 'Metamask') {
-        //     const _account = await ConnectToMetaMask()
-        //     if (_account === null){
-        //         return alert('Make sure you have Metamask installed!')
-        //     }
-        //     try {
-        //         setAccount(_account)
-        //     } catch (err) {
-        //         alert(err)
-        //     }
-        // }  else {
-        //     alert('Something went wrong!')
-        // }
         setConnectModalOpen(false)
     }
 

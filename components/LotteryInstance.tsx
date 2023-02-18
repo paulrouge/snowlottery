@@ -115,7 +115,7 @@ const LotteryInstance = () => {
         const ticketPrice = ethers.utils.parseEther('0.01')
         const totalTickets = 100
         try{
-            const tx:ethers.Transaction = await contractSigner.createLottery(ticketPrice, totalTickets, options)
+            const tx = await contractSigner.createLottery(ticketPrice, totalTickets, options)
             setTransactionToCheck(tx)
         } catch (e) {
             console.log(e)
@@ -128,7 +128,7 @@ const LotteryInstance = () => {
         }
 
         try{
-            const tx:ethers.Transaction = await contractSigner.closeLottery(lotteryId, options)
+            const tx = await contractSigner.closeLottery(lotteryId, options)
             setTransactionToCheck(tx)
         } catch (e) {
             console.log(e)

@@ -38,7 +38,7 @@ const BuyTicketsModal = (props: Props) => {
             gasLimit: 10000000
         }
         try{
-            const tx:ethers.Transaction = await contractSigner.buyTickets(lotteryId, amountOfTickets, options)
+            const tx = await contractSigner.buyTickets(lotteryId, amountOfTickets, options)
             setTransactionToCheck(tx)
         } catch (e) {
             console.log(e)
