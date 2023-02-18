@@ -1,6 +1,5 @@
 import React from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
-// import { ConnectToHana, ConnectToMetaMask } from '../../utils/connectWallet'
 import detectEthereumProvider from '@metamask/detect-provider'
 import { ethers } from 'ethers'
 
@@ -10,26 +9,62 @@ type Props = {
 
 // extend on MetaMaskEthereumProvider type
 type MetaMaskEthereumProvider = {
-    request: (args: { method: string }) => Promise<string[]>
+    request: (args: {method: string }) => Promise<string[]>
 }
 
+declare const window: any;
+
 const WalletProvider = ({name}: Props) => {
-    const { setAccount, setConnectModalOpen, setProvider, setSigner } = useGlobalContext()
+    const { setAccount, setConnectModalOpen, setProvider, setSigner, chainId } = useGlobalContext()
+
+    // switch chain
+    const switchChain = async () => {
+        try {
+            await window.hanaWallet.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: chainId }],
+            });
+          } catch (error) {
+                console.log(error)
+        }
+    }
 
     const handleClick = async () => {
-        const provider = await detectEthereumProvider() as MetaMaskEthereumProvider
-        
-        if (provider) {
-            const _account = await provider.request({ method: 'eth_requestAccounts' })
-            setAccount(_account[0])
-            const _provider = new ethers.providers.Web3Provider(provider)
-            // console.log(_provider)
-            setProvider(_provider) 
-            
-            const _signer = _provider.getSigner()
-            setSigner(_signer)
+        if(name === 'MetaMask'){
+            try {
+                const provider = await detectEthereumProvider({mustBeMetaMask:false}) as MetaMaskEthereumProvider
+                
+                if (provider) {
+                    const _account = await provider.request({ method: 'eth_requestAccounts' })
+                    setAccount(_account[0])
+                    const _provider = new ethers.providers.Web3Provider(provider)
+                    setProvider(_provider) 
+                    const _signer = _provider.getSigner()
+                    setSigner(_signer)
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
 
+        if (name === 'Hana') {
+            try {
+                if(window !== undefined) {
+                    if (window.hanaWallet !== undefined) {
+                        const _account = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
+                        setAccount(_account[0])
+                        const _provider = new ethers.providers.Web3Provider(window.hanaWallet.ethereum,)
+                        setProvider(_provider)
+                        const _signer = _provider.getSigner()
+                        setSigner(_signer)
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        switchChain()
         setConnectModalOpen(false)
     }
 
@@ -55,7 +90,7 @@ const ChooseWalletProvider = () => {
     onClick={()=>{setConnectModalOpen(false)}}
     >
         <WalletProvider name='Hana'/>
-        <WalletProvider name='Metamask'/>
+        <WalletProvider name='MetaMask'/>
     </div>
   )
 }

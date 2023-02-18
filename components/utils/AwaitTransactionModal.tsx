@@ -68,15 +68,19 @@ const AwaitTransactionModal = () => {
     <div className='fixed top-0 left-0 backdrop-blur-sm
     w-screen h-screen z-50 flex justify-center items-center'
     >
-        <div className='bg-funOrange md:w-3/5 rounded md:p-12 border-8 border-white' >
-            <div className='font-bold text-3xl text-white'>
+        <div className='bg-funOrange md:w-3/5 w-11/12 rounded md:p-12 p-2 border-8 border-white' >
+            <div className='font-bold md:text-3xl text-xl text-white'>
             {status}{dots}
+            {/* place holder blabl status is peniding or success */}
             </div>
             <div className='mt-2 font-bold text-xl text-white'>
                 estimated time: {countdown} seconds
+                {/* estimated time: 50 seconds */}
             </div>
             <div className='mt-2 font-bold text-xl text-white'>
-                tx hash: {transactionToCheck.hash}
+                {/* doesnt really fit... */}
+                {/* tx hash: {transactionToCheck.hash} */}
+                {/* tx hash: dummyhash1234567890ummyhash1234567890ummyhash234567 */}
             </div>
         </div>
     </div>

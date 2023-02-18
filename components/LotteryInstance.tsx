@@ -23,35 +23,63 @@ type LotteryInstanceProps = {
 
 const LotteryInstance = () => {
     const { provider, account, signer, setTransactionToCheck, lotteryId} = useGlobalContext()
-    const contractCaller = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, provider)
-    const contractSigner = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, signer)
+  
     const [ownerOfContract, setOwnerOfContract] = useState<string>('')
     const [accountIsOwner, setAccountIsOwner] = useState<boolean>(false)
     const [lotteryInstance, setLotteryInstance] = useState<LotteryInstanceProps|null>(null)
     const [buyTicketsModalOpen, setBuyTicketsModalOpen] = useState<boolean>(false)
     const [ticketOwners, setTicketOwners] = useState<Ticket[]>([])
     const [ticketAmountOwnerByAccount, setTicketAmountOwnerByAccount] = useState<number>(0)
+    const [contractCaller, setContractCaller] = useState<ethers.Contract|null>(null)
+    const [contractSigner, setContractSigner] = useState<ethers.Contract|null>(null)
 
-   
+    useEffect(() => {
+        if(provider){
+            const contractCaller = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, provider)
+            setContractCaller(contractCaller)
+        }
+    }, [provider])
 
+    useEffect(() => {
+        if(signer){
+            const contractSigner = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, signer)
+            setContractSigner(contractSigner)
+        }
+    }, [signer])
+
+
+    // test get tickowner
+    // useEffect(() => {
+    //     const getOwner = async () => {
+    //         const owner:string = await contractCaller.ticketOwners(lotteryId,9) 
+    //         console.log(owner)
+    //     }
+    //     if(contractCaller){
+    //         getOwner()
+    //     }
+  
+    // }, [contractCaller])
+
+    
     useEffect(() => {
         const getOwner = async () => {
             const res = await contractCaller.owner()
             setOwnerOfContract(res)
         }
-        if(provider){
+        if(contractCaller){
             getOwner()
         }
-    }, [provider])
+    }, [contractCaller])
 
     useEffect(() => {
-        if(ownerOfContract === account[0] && account.length > 0){
+        if(ownerOfContract === account){
             setAccountIsOwner(true)
         } else {
             setAccountIsOwner(false)
         }
     }, [ownerOfContract, account])
 
+   
     useEffect(() => {
         const getLottery = async () => {
             const res = await contractCaller.lotteries(lotteryId)
@@ -67,10 +95,10 @@ const LotteryInstance = () => {
 
             setLotteryInstance(_lotteryInstance)
         }
-        if(provider){
+        if(contractCaller){
             getLottery()
         }
-    }, [provider])
+    }, [contractCaller])
 
     useEffect(() => {
         const getOwners = async () => {
@@ -89,25 +117,25 @@ const LotteryInstance = () => {
             }
             setTicketOwners(_cache)
         }
-        if(provider){
+        if(contractCaller){
             getOwners()
         }
-    }, [provider])
+    }, [contractCaller])
   
     useEffect(() => {
         setTicketAmountOwnerByAccount(0)
         const getAmountOwned = async () => {
             for(let i = 0; i < ticketOwners.length; i++){
-                if(ticketOwners[i].address.toLowerCase() === account[0]){
+                if(ticketOwners[i].address.toLowerCase() === account){
                     console.log('found')
                     setTicketAmountOwnerByAccount(prev => prev + 1)
                 }
             }
         }
-        if(provider){
+        if(contractCaller){
             getAmountOwned()
         }
-    }, [provider, ticketOwners])
+    }, [contractCaller, ticketOwners])
 
     const createNewLottery = async () => {
         const options = {
@@ -168,7 +196,7 @@ const LotteryInstance = () => {
                 </div>
             </div>
 
-            <div className='mt-6 flex justify-center bg-funPurple py-4 px-8 md:p-8 rounded-md hover:bg-funBlue cursor-pointer shadow-2xl'>
+            <div className='mt-6 flex justify-center bg-funPurple py-4 px-8 md:p-4 rounded-md hover:bg-funBlue cursor-pointer shadow-2xl'>
                 <div 
                 className='text-2xl font-bold'
                 onClick={() => setBuyTicketsModalOpen(true)}

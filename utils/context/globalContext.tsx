@@ -20,8 +20,6 @@ export type globalContextValueType = {
     setTransactionToCheck: React.Dispatch<React.SetStateAction<any| null>>,
     connectModalOpen: boolean,
     setConnectModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    deviceIsMobile: boolean,
-    setDeviceIsMobile: React.Dispatch<React.SetStateAction<boolean>>,
     // for the lottery project only
     lotteryId: number,
 }
@@ -38,7 +36,6 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
     const [transactionToCheck, setTransactionToCheck] = useState<any|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
-    const [deviceIsMobile, setDeviceIsMobile] = useState<boolean>(true)
 
     const value: globalContextValueType = {
         account,
@@ -57,8 +54,6 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setTransactionToCheck: setTransactionToCheck,
         connectModalOpen: connectModalOpen,
         setConnectModalOpen: setConnectModalOpen,
-        deviceIsMobile: deviceIsMobile,
-        setDeviceIsMobile: setDeviceIsMobile,
         // for the lottery project only
         lotteryId: 1,
     }

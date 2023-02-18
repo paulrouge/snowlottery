@@ -1,8 +1,6 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
 import { useGlobalContext } from '../utils/context/globalContext'
-import { ethers } from 'ethers'
-import lotteryAbi from '../utils/contracts/lottery_abi.json'
-import { ContractAddresses } from '../utils/constants/addresses'
+
 
 type Ticket = {
     address: string,
@@ -18,9 +16,6 @@ const TicketOwner = (props:Ticket) => {
 }
 
 const ListTicketOwners = ({ticketOwners}) => {
-    const { provider, lotteryId } = useGlobalContext()
-    // const [ticketOwners, setTicketOwners] = useState<Ticket[]>([])
-
     return (
     <div className='mt-4 bg-funBlue p-2 rounded'>
         <div className='text-xl mb-2'>Entries:</div>
