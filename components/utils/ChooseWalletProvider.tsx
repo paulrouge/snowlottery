@@ -30,7 +30,9 @@ const WalletProvider = ({name}: Props) => {
             } catch (err) {
                 alert(err)
             }
-        }   
+        }  else {
+            alert('Something went wrong!')
+        }
         setConnectModalOpen(false)
     }
 
