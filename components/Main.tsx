@@ -7,7 +7,7 @@ const Main = () => {
     const { account } = useGlobalContext() 
   
     return (
-    <div className='w-screen h-auto min-h-screen'>
+    <div className='w-screen h-screen'>
         <div className='
         w-full h-full bg-funYellow flex flex-col 
         justify-center items-center overflow-scroll 
