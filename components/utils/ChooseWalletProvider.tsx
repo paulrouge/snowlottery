@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
-import { ConnectToHana, ConnectToMetaMask } from '../../utils/connectWallet'
+// import { ConnectToHana, ConnectToMetaMask } from '../../utils/connectWallet'
 import detectEthereumProvider from '@metamask/detect-provider'
 import { ethers } from 'ethers'
 
