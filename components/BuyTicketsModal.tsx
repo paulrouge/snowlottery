@@ -34,11 +34,11 @@ const BuyTicketsModal = (props: Props) => {
 
     const handleBuyTickets = async () => {
         const options = {
-            value: ethers.parseEther((amountOfTickets * props.lottery.ticketPrice).toString()),
+            value: ethers.utils.parseEther((amountOfTickets * props.lottery.ticketPrice).toString()),
             gasLimit: 10000000
         }
         try{
-            const tx:ethers.ContractTransactionResponse = await contractSigner.buyTickets(lotteryId, amountOfTickets, options)
+            const tx:ethers.Transaction = await contractSigner.buyTickets(lotteryId, amountOfTickets, options)
             setTransactionToCheck(tx)
         } catch (e) {
             console.log(e)

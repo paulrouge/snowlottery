@@ -3,9 +3,10 @@ import { ethers } from 'ethers';
 declare const window: any;
 
 export async function ConnectToHana():Promise<string>{
+    alert('Hana wallet detected')
     if(!window.ethereum) return null
-    
-    const accounts = await window.hanaWallet?.ethereum.request({ method: 'eth_requestAccounts' })
+    await window.ethereum.enable()
+    const accounts = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
     // set localstorage
     localStorage.setItem('wallet', 'hana');
     // fire event
@@ -14,9 +15,16 @@ export async function ConnectToHana():Promise<string>{
 }
 
 export async function ConnectToMetaMask():Promise<string> {
-    if(!window.ethereum) return null
+    if (typeof window.ethereum !== 'undefined') {
+        alert('MetaMask is installed!');
+      } else {
+        alert('MetaMask is not installed!');
+        }
+  
+    // if(!window.ethereum) return null
     
     const accounts = await window.ethereum!.request({ method: 'eth_requestAccounts' })
+    alert(accounts)
     // set localstorage
     localStorage.setItem('wallet', 'metamask');
     // fire event

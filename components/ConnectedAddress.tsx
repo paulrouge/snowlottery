@@ -2,12 +2,14 @@ import React from 'react'
 import { useGlobalContext } from '../utils/context/globalContext'
 
 const ConnectedAddress = () => {
-    const { account } = useGlobalContext()
-    
+    const { account, provider } = useGlobalContext()
+
+    // console.log('global provider',provider)
+
     // format the account address
     const formatAddress = (address: string) => {
         if (!address) return ''
-        address = address[0]
+  
         return address.slice(0, 6) + '...' + address.slice(-4)
     }
     

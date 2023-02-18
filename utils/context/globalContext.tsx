@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import { ethers } from 'ethers';
+import { ethers} from 'ethers';
+
+
 
 export type globalContextValueType = {
     account: string,
@@ -8,14 +10,14 @@ export type globalContextValueType = {
     setBalance: React.Dispatch<React.SetStateAction<number>>,
     chainId: number,
     setChainId: React.Dispatch<React.SetStateAction<number>>,
-    provider: ethers.BrowserProvider | null,
-    setProvider: React.Dispatch<React.SetStateAction<ethers.BrowserProvider | null>>,
+    provider: ethers.providers.Web3Provider | null,
+    setProvider: React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider|null>>,
     signer: ethers.Signer | null,
     setSigner: React.Dispatch<React.SetStateAction<ethers.Signer | null>>,
     globalLoading: boolean,
     setGlobalLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    transactionToCheck: ethers.ContractTransactionResponse | null,
-    setTransactionToCheck: React.Dispatch<React.SetStateAction<ethers.ContractTransactionResponse | null>>,
+    transactionToCheck: ethers.Transaction | null,
+    setTransactionToCheck: React.Dispatch<React.SetStateAction<ethers.Transaction | null>>,
     connectModalOpen: boolean,
     setConnectModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
     deviceIsMobile: boolean,
@@ -31,10 +33,10 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [account, setAccount] = useState<string>("")
     const [balance, setBalance] = useState<number>(0)
     const [chainId, setChainId] = useState<number>(553)
-    const [provider, setProvider] = useState<ethers.BrowserProvider|null>(null)
+    const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
-    const [transactionToCheck, setTransactionToCheck] = useState<ethers.ContractTransactionResponse|null>(null)
+    const [transactionToCheck, setTransactionToCheck] = useState<ethers.Transaction|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
     const [deviceIsMobile, setDeviceIsMobile] = useState<boolean>(true)
 
