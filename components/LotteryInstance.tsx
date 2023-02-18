@@ -138,7 +138,7 @@ const LotteryInstance = () => {
     return (
     <div className=' 
     flex flex-col items-center justify-center
-    w-5/12 h-auto rounded-xl p-4 m-8
+    md:w-5/12 h-auto rounded-xl p-4 m-8
     bg-funRed text-white z-10 shadow-2xl
     '>
 

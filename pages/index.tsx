@@ -68,7 +68,7 @@ const IndexPage = () => {
 
   return (
   <Layout title="Snow Lottery">
-    { !deviceIsMobile && 
+    { deviceIsMobile && 
       <>
         <ConnectButton/>
         { connectModalOpen && <ChooseWalletProvider/> }
