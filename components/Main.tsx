@@ -8,7 +8,7 @@ const Main = () => {
   
     return (
     <div className='w-screen h-screen'>
-        <div className='w-full h-full bg-funYellow flex flex-col justify-center items-center overflow-scroll'>
+        <div className='w-full h-full bg-funYellow flex flex-col justify-center items-center overflow-scroll pt-28'>
             <div className='pt-12
             flex flex-col items-center justify-center w-full md:text-8xl text-4xl
             font-bold'>

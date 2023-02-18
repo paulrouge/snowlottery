@@ -72,7 +72,7 @@ const LotteryInstance = () => {
     }, [contractCaller])
 
     useEffect(() => {
-        if(ownerOfContract === account){
+        if(ownerOfContract === account && account !== ''){
             setAccountIsOwner(true)
         } else {
             setAccountIsOwner(false)

@@ -6,7 +6,7 @@ const sleep = (ms: number) => {
 }
 
 const AwaitTransactionModal = () => {
-    const { setTransactionToCheck, provider, transactionToCheck} = useGlobalContext()
+    const { setTransactionToCheck, transactionToCheck} = useGlobalContext()
     const [countdown, setCountdown] = useState(30)
     const [status, setStatus] = useState("Waiting for transaction to be mined")
     const [dots, setDots] = useState(".")
