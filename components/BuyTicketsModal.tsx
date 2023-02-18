@@ -25,7 +25,6 @@ const BuyTicketsModal = (props: Props) => {
     const contractSigner = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, signer)
     const [amountOfTickets, setAmountOfTickets] = useState<number>(1)
 
-
     const handleAmountOfTicketsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAmountOfTickets(parseInt(e.target.value))
         if (parseInt(e.target.value) > props.lottery.totalTickets) {
@@ -41,6 +40,7 @@ const BuyTicketsModal = (props: Props) => {
         try{
             const tx = await contractSigner.buyTickets(lotteryId, amountOfTickets, options)
             setTransactionToCheck(tx)
+
         } catch (e) {
             console.log(e)
         }
