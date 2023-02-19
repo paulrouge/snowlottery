@@ -136,7 +136,7 @@ const LotteryInstance = () => {
         if(contractCaller){
             getOwners()
         }
-    }, [contractCaller, toggleGetter])
+    }, [contractCaller, toggleGetter, lotteryId])
   
     useEffect(() => {
         setTicketAmountOwnerByAccount(0)
@@ -157,8 +157,9 @@ const LotteryInstance = () => {
             gasLimit: 1000000,
         }
 
-        const ticketPrice = ethers.utils.parseEther('10')
-        const totalTickets = 100
+        const ticketPrice = ethers.utils.parseEther('100')
+        const totalTickets = 10000
+        
         try{
             const tx = await contractSigner.createLottery(ticketPrice, totalTickets, options)
             setTransactionToCheck(tx)
