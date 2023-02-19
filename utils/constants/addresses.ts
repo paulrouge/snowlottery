@@ -1,3 +1,3 @@
 export const ContractAddresses = {
-    lotteryContract: '0xa31F4c0eF2935Af25370D9AE275169CCd9793DA3',
+    lotteryContract: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
 };

@@ -25,6 +25,7 @@ export type globalContextValueType = {
     setCallBackTransaction: React.Dispatch<React.SetStateAction<string | null>>,
     // for the lottery project only
     lotteryId: number,
+    setLotteryId: React.Dispatch<React.SetStateAction<number>>,
 }
 
 export const GlobalContext = React.createContext<globalContextValueType | null>(null)
@@ -33,13 +34,14 @@ export const useGlobalContext = () => React.useContext(GlobalContext)!;
 export const GlobalContextProvider = ({children}: {children: React.ReactNode}) => {
     const [account, setAccount] = useState<string>("")
     const [balance, setBalance] = useState<number>(0)
-    const [chainId, setChainId] = useState<number>(553)
+    const [chainId, setChainId] = useState<number>(552) // 553: Arctic Test, 553: Snow Main
     const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
     const [transactionToCheck, setTransactionToCheck] = useState<any|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
     const [callBackTransaction, setCallBackTransaction] = useState<string|null>(null)
+    const [lotterId, setLotteryId] = useState<number>(0)
 
     const value: globalContextValueType = {
         account,
@@ -61,7 +63,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         callBackTransaction: callBackTransaction,
         setCallBackTransaction: setCallBackTransaction,
         // for the lottery project only
-        lotteryId: 1,
+        lotteryId: lotterId,
+        setLotteryId: setLotteryId,
     }
 
     return(

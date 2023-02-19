@@ -19,8 +19,8 @@ const Main = () => {
             </div>
             
             <div className='
-            flex flex-col md:flex-row md:text-2xl 
-            mx-4 justify-center items-center
+            flex flex-col md:text-2xl 
+            mx-4 mt-2 justify-center items-center
             '>
                 <div className='mx-4'>
                     winner is picked onchain, every sunday

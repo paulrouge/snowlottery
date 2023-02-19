@@ -21,16 +21,32 @@ type Props = {
 }
 
 const BuyTicketsModal = (props: Props) => {
-    const { signer, setTransactionToCheck, lotteryId, setCallBackTransaction } = useGlobalContext()
+    const { signer, setTransactionToCheck, lotteryId } = useGlobalContext()
     const contractSigner = new ethers.Contract(ContractAddresses.lotteryContract, lotteryAbi.abi, signer)
     const [amountOfTickets, setAmountOfTickets] = useState<number>(1)
+    const [_inputCache, _setInputCache] = useState<string>("")
 
     const handleAmountOfTicketsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAmountOfTickets(parseInt(e.target.value))
-        if (parseInt(e.target.value) > props.lottery.totalTickets) {
-            setAmountOfTickets(props.lottery.totalTickets)
+        _setInputCache(e.target.value);
+    };
+      
+    useEffect(() => {
+        const parsedValue = parseInt(_inputCache);
+        const ticketsLeft = props.lottery.totalTickets - props.lottery.ticketsSold
+        
+        if (!isNaN(parsedValue) && parsedValue > 0) {
+            // if the value is larger then totaltickets, set it to totaltickets - ticketsSold
+            if(parsedValue > props.lottery.totalTickets - props.lottery.ticketsSold){
+                setAmountOfTickets(ticketsLeft)
+                _setInputCache(ticketsLeft.toString())
+            } else {
+                setAmountOfTickets(parsedValue);
+            }
+        } else {
+            setAmountOfTickets(0);
         }
-    }
+        
+    }, [_inputCache]);
 
     const handleBuyTickets = async () => {
         const options = {
@@ -71,7 +87,7 @@ const BuyTicketsModal = (props: Props) => {
                 <input
                 type='number'
                 className='w-full bg-funPurple text-white border rounded-md p-2 '
-                value={amountOfTickets}
+                value={_inputCache}
                 onChange={(e) => handleAmountOfTicketsChange(e)}
                 />
             </div>

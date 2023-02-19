@@ -22,7 +22,7 @@ type LotteryInstanceProps = {
 }
 
 const LotteryInstance = () => {
-    const { provider, account, signer, setTransactionToCheck, lotteryId} = useGlobalContext()
+    const { provider, account, signer, setTransactionToCheck, lotteryId ,setLotteryId} = useGlobalContext()
   
     const [ownerOfContract, setOwnerOfContract] = useState<string>('')
     const [accountIsOwner, setAccountIsOwner] = useState<boolean>(false)
@@ -30,9 +30,21 @@ const LotteryInstance = () => {
     const [buyTicketsModalOpen, setBuyTicketsModalOpen] = useState<boolean>(false)
     const [ticketOwners, setTicketOwners] = useState<Ticket[]>([])
     const [ticketAmountOwnerByAccount, setTicketAmountOwnerByAccount] = useState<number>(0)
+    
     const [contractCaller, setContractCaller] = useState<ethers.Contract|null>(null)
     const [contractSigner, setContractSigner] = useState<ethers.Contract|null>(null)
     const [toggleGetter, setToggleGetter] = useState<boolean>(false)
+
+
+    useEffect(() => {
+        const call = async () => {
+            const _lotteryId = await contractCaller.lotteryCounter()
+            setLotteryId(Number(_lotteryId))
+        }
+        if(contractCaller){
+            call()
+        }
+    }, [contractCaller])
 
     useEffect(() => {
         if(window){
@@ -76,7 +88,6 @@ const LotteryInstance = () => {
     }, [contractCaller])
 
     useEffect(() => {
-        
         if(ownerOfContract === account && account !== ''){
             setAccountIsOwner(true)
         } else {
@@ -84,13 +95,12 @@ const LotteryInstance = () => {
         }
     }, [ownerOfContract, account])
 
-   
     useEffect(() => {
         const getLottery = async () => {
             const res = await contractCaller.lotteries(lotteryId)
             const _lotteryInstance: LotteryInstanceProps = {
-                id: 1,
-                ticketPrice: Number(res.ticketPrice) /10 ** 18,
+                id: lotteryId,
+                ticketPrice: Number(res.ticketPrice) / 10 ** 18,
                 totalTickets: Number(res.totalTickets),
                 ticketsSold: Number(res.ticketsSold),
                 closed: res.closed,
@@ -103,7 +113,8 @@ const LotteryInstance = () => {
         if(contractCaller){
             getLottery()
         }
-    }, [contractCaller, toggleGetter])
+       
+    }, [contractCaller, toggleGetter, lotteryId])
 
     useEffect(() => {
         const getOwners = async () => {
@@ -146,7 +157,7 @@ const LotteryInstance = () => {
             gasLimit: 1000000,
         }
 
-        const ticketPrice = ethers.utils.parseEther('0.01')
+        const ticketPrice = ethers.utils.parseEther('10')
         const totalTickets = 100
         try{
             const tx = await contractSigner.createLottery(ticketPrice, totalTickets, options)
@@ -187,7 +198,7 @@ const LotteryInstance = () => {
                 your tickets: {ticketAmountOwnerByAccount}
                 </div>
                 <div>
-                prize pool: {lotteryInstance.totalTickets * lotteryInstance.ticketPrice}
+                prize pool: {(lotteryInstance.ticketsSold * lotteryInstance.ticketPrice * 0.97).toFixed(2)} ICZ
                 </div>
                 <div className=''>
                 ticket price:  {lotteryInstance.ticketPrice} ICZ
@@ -201,12 +212,19 @@ const LotteryInstance = () => {
             </div>
 
             <div className='mt-6 flex justify-center bg-funPurple py-4 px-8 md:p-4 rounded-md hover:bg-funBlue cursor-pointer shadow-2xl'>
+            {!lotteryInstance.closed ? 
                 <div 
                 className='text-2xl font-bold'
                 onClick={() => setBuyTicketsModalOpen(true)}
+                
                 >
                     get your tickets!
                 </div>
+                :
+                <div className='text-2xl font-bold'>
+                    lottery closed
+                </div>
+            }
             </div>
             <ListTicketOwners ticketOwners={ticketOwners} />
         </div>
